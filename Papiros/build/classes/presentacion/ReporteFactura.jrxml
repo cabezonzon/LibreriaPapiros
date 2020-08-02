@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e7acb1bb-2d11-48a1-b1f1-3979cbd335fd">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\Marcos\\Desktop\\repositorio Papiros SVN\\trunk\\Papiros\\src\\presentacion\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="nrov" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+u.nick as usuario,
+mp.nombre as mediopago,
+v.codFactura as NroFactura	
+     v.idventa AS idventa ,
+     v.fecha AS Fecha,
+     v.subtotal as SUBTOTAL,
+	v.iva as IVA,
+v.monto as TOTAL,
+ p.nombre AS Producto,
+     p.descripcion As Detalle,
+    p.precio AS Precio_Unit,
+    l.cantidad as Cant,
+(l.cantidad * p.precio) as totalpro
+
+
+FROM
+     producto p, linea_venta l,venta v, mediopago mp, usuario u  
+ 
+WHERE
+    	
+	 v.idventa = l.idventa and
+mp.idmedioPago=v.idmedioPago 
+and u.idusuario=v.idusuario
+
+          and p.idproducto =  l.idproducto
+	and v.idventa= $P{nrov}
+group by producto]]>
+	</queryString>
+	<field name="usuario" class="java.lang.String"/>
+	<field name="mediopago" class="java.lang.String"/>
+	<field name="NroFactura" class="java.lang.Integer"/>
+	<field name="Fecha" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="SUBTOTAL" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="IVA" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="TOTAL" class="java.lang.Integer"/>
+	<field name="Producto" class="java.lang.String"/>
+	<field name="Detalle" class="java.lang.String"/>
+	<field name="Precio_Unit" class="java.lang.Integer"/>
+	<field name="Cant" class="java.lang.Integer"/>
+	<field name="totalpro" class="java.lang.Long"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="84" splitType="Stretch">
+			<textField>
+				<reportElement x="455" y="20" width="100" height="20" uuid="fc1f454f-9aaf-4a43-bfc6-97b09377abdb"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{mediopago}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="455" y="40" width="100" height="20" uuid="491138b7-5603-439f-8d57-697a1bac527a"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{Fecha}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="455" y="60" width="100" height="24" uuid="9000b39e-4136-4462-b45c-b1a31ec37ce3"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{usuario}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="455" y="0" width="100" height="20" uuid="c6d8dbd1-c78b-4048-bc0e-0ae651b96bb0"/>
+				<textFieldExpression><![CDATA[$F{NroFactura}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="49" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="25" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="20">
+			<textField>
+				<reportElement x="302" y="0" width="100" height="20" uuid="2ca34017-194a-49d8-9019-a1d8f4ef4a64"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{Cant}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="202" y="0" width="100" height="20" uuid="5196c403-1d11-4ed0-a1a8-cac24ab8d5f8"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{Precio_Unit}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="0" width="100" height="20" uuid="94fc363c-c6ce-42d7-9658-57db39e094c7"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{Detalle}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="100" height="20" uuid="d650990e-19fa-4380-b410-228d3fe1042a"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{Producto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="400" y="0" width="100" height="20" uuid="5b09ca64-3c35-4865-a522-76567e361fe6"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{totalpro}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="53" splitType="Stretch">
+			<textField>
+				<reportElement x="455" y="22" width="100" height="20" uuid="cae7106e-07f6-44e4-9003-421e4ff0590b"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TOTAL}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="300" y="22" width="100" height="20" uuid="13847f0e-b0c6-43cf-8814-11c10583fa26"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{IVA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="162" y="22" width="100" height="20" uuid="472ad285-28d1-4ee1-b1d9-b9aee74a6c38"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{SUBTOTAL}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

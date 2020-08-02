@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7b9a4ff1-7143-4043-ab3e-06b96c480604">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="ci" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT 
+    c.Nombre,
+    c.Apellido,
+    cr.Fecha As Fecha_Credito,
+    e.fecha AS Fecha_Entrega,
+    cr.saldo AS Debe,
+    e.monto AS Haber,
+    (cr.saldo - e.monto) AS Saldo
+FROM
+    cliente c,
+    credito cr,       
+    entregas e
+WHERE
+     c.ci = cr.ci_cliente
+     and cr.idcredito = e.idcredito
+     AND c.ci = $P{ci}]]>
+	</queryString>
+	<field name="Nombre" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Apellido" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Fecha_Credito" class="java.sql.Date"/>
+	<field name="Fecha_Entrega" class="java.sql.Date"/>
+	<field name="Debe" class="java.lang.String"/>
+	<field name="Haber" class="java.lang.Integer"/>
+	<field name="Saldo" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="89">
+			<frame>
+				<reportElement mode="Opaque" x="-20" y="-20" width="595" height="109" backcolor="#006699" uuid="e089f6d5-80b4-4b15-886d-6110220518b4"/>
+				<staticText>
+					<reportElement x="120" y="20" width="295" height="43" forecolor="#FFFFFF" uuid="f16a8df5-2041-46fe-9647-8fc1b66a6a40"/>
+					<textElement>
+						<font size="34" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Estado de Cuenta]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Transparent" x="31" y="63" width="61" height="20" forecolor="#FFFFFF" backcolor="#E6E6E6" uuid="1fe02ac0-e8f7-4b4e-967f-5e6a2628bf7f"/>
+					<textElement textAlignment="Center">
+						<font size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Cliente]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true">
+					<reportElement x="4" y="83" width="116" height="20" forecolor="#FFFFFF" uuid="6cf2111c-2145-48fb-b87f-21a03425f82e"/>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{Nombre}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement x="120" y="83" width="164" height="20" forecolor="#FFFFFF" uuid="f78a79d8-ce5d-4493-92d3-1efb44967098"/>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{Apellido}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="13"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="21">
+			<line>
+				<reportElement x="-20" y="20" width="595" height="1" forecolor="#666666" uuid="cb3e8a79-c49b-48f2-88a2-c71c98c885e7"/>
+			</line>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="111" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="8976c89b-2755-4681-a634-87f273ef2276"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha_Credito]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="111" y="0" width="108" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="3b77d792-4bd9-4c21-ba8b-b37de8f413f7"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha_Entrega]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="288" y="0" width="46" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="fb8ab2bf-0c70-4fb2-ae51-4d2477d40b77"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Debe]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="334" y="0" width="61" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="839cc39b-adf5-404b-b5a3-cd4a3b564cd8"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Haber]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="395" y="0" width="44" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="838c339f-0a50-4277-b420-509191f3ad30"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Saldo]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="19" width="555" height="1" uuid="0875fc53-6e65-44f2-8a58-000b4fb585fd"/>
+			</line>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="0" y="0" width="111" height="20" uuid="832a7c91-08dd-46d9-ae03-f26f27f1744f"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Fecha_Credito}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="334" y="0" width="61" height="20" uuid="c46e5a33-4c42-486f-9630-d536f54b4d01"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Haber}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="395" y="0" width="44" height="20" uuid="84e143d6-2f14-4fea-85b9-384d792be1bf"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Saldo}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="111" y="0" width="108" height="20" uuid="97e7de00-ecd3-43b8-ba2a-13620fe48112"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Fecha_Entrega}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="285" y="0" width="49" height="20" uuid="a4aabe23-9e54-4c38-b459-518313079fc1"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Debe}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band height="17">
+			<textField>
+				<reportElement mode="Opaque" x="0" y="4" width="515" height="13" backcolor="#E6E6E6" uuid="6195bfad-6a8f-4cb1-b071-078966ae8165"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement mode="Opaque" x="515" y="4" width="40" height="13" backcolor="#E6E6E6" uuid="476bf262-6c49-416f-8540-7f6733ceed1f"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="0" y="4" width="100" height="13" uuid="30157626-19c5-48b2-9e45-f18efb17372d"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>
